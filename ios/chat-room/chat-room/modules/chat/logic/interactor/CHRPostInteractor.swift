@@ -34,6 +34,7 @@ class CHRPostInteractor: NSObject {
                 if let result = snapshot.value as? [String:AnyObject] {
                     let toIdCloud = result["toId"]! as! String
                     if toIdCloud == toId{
+                        print("EQ: IGUAL")
                         let p = Post(username: result["username"] as! String,
                                      text: result["text"] as! String,
                                      toId: "toId")
