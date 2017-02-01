@@ -14,10 +14,13 @@ class CHRChatViewController: UIViewController, UITableViewDataSource, UITableVie
     var cellHeight = 44
     @IBOutlet weak var tableView: UITableView!
     
+    
+    @IBOutlet weak var txtMessage: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.estimatedRowHeight = 88.0
-        tableView.rowHeight = UITableViewAutomaticDimension
+        //tableView.estimatedRowHeight = 88.0
+        //tableView.rowHeight = UITableViewAutomaticDimension
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view.
@@ -58,6 +61,20 @@ class CHRChatViewController: UIViewController, UITableViewDataSource, UITableVie
         let post = CHRPostInteractor.posts[indexPath.row]
         cell.messageText.text = post.text
         return cell
+    }
+    
+    @IBAction func postMessage(_ sender: Any) {
+        
+        //Solo verificando vacío por demostración
+        if txtMessage.text! != "" {
+            CHRPostInteractor.addPost(username: (selectedUser?.username)!,
+                                      text: txtMessage.text!,
+                                      toId: (selectedUser?.uid)!,
+                                      fromId: ((CHRFirebaseManager.currentUser?.uid)!))
+            txtMessage.text = ""
+            
+        }
+        
     }
     
     /*
