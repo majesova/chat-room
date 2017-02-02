@@ -38,17 +38,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="erA-YK-Ppx">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="erA-YK-Ppx">
                                 <rect key="frame" x="16" y="169" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RHQ-3L-AVr">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RHQ-3L-AVr">
                                 <rect key="frame" x="16" y="207" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U4b-pK-HZX">
                                 <rect key="frame" x="164" y="269" width="46" height="30"/>
@@ -100,7 +100,7 @@
         <!--Settings-->
         <scene sceneID="Luu-hF-Eu0">
             <objects>
-                <viewController title="Settings" id="oC3-Ji-GgR" sceneMemberID="viewController">
+                <viewController title="Settings" id="oC3-Ji-GgR" customClass="CHRSettingsViewController" customModule="chat_room" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JQt-6w-IRE"/>
                         <viewControllerLayoutGuide type="bottom" id="o9V-rE-W9f"/>
@@ -112,10 +112,16 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RAH-LP-clH">
                                 <rect key="frame" x="134" y="380" width="108" height="30"/>
                                 <state key="normal" title="Tomar foto"/>
+                                <connections>
+                                    <action selector="TakePictureAction:" destination="oC3-Ji-GgR" eventType="touchUpInside" id="HuW-9Y-QAi"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Frw-SZ-7dQ">
                                 <rect key="frame" x="146" y="431" width="84" height="30"/>
                                 <state key="normal" title="Actualizar"/>
+                                <connections>
+                                    <action selector="btnUpdatePictureAction:" destination="oC3-Ji-GgR" eventType="touchUpInside" id="YKm-gz-n8I"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="purple_cupcake" translatesAutoresizingMaskIntoConstraints="NO" id="gkQ-F4-Mdz">
                                 <rect key="frame" x="95" y="118" width="187" height="198"/>
@@ -137,10 +143,59 @@
                             <constraint firstItem="gkQ-F4-Mdz" firstAttribute="top" secondItem="JQt-6w-IRE" secondAttribute="bottom" constant="54" id="yM9-hV-niy"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="avatarImage" destination="gkQ-F4-Mdz" id="2Pk-EJ-gFt"/>
+                        <outlet property="imageView" destination="gkQ-F4-Mdz" id="PY5-1f-kSO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mIg-Q7-inB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1925.5999999999999" y="124.58770614692655"/>
+            <point key="canvasLocation" x="1966" y="125"/>
+        </scene>
+        <!--Choose Source Image View Controller-->
+        <scene sceneID="3F7-2d-ad2">
+            <objects>
+                <viewController storyboardIdentifier="chooseSourceImage" id="kg2-4N-IxY" customClass="CHRChooseSourceImageViewController" customModule="chat_room" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="L0o-Dd-vXq"/>
+                        <viewControllerLayoutGuide type="bottom" id="LXb-0Q-jFx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6Sr-r9-BXL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rYN-Q3-bGI">
+                                <rect key="frame" x="16" y="20" width="343" height="647"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QmJ-kq-73i">
+                                        <rect key="frame" x="145" y="0.0" width="53" height="323.5"/>
+                                        <state key="normal" title="Cámara"/>
+                                        <connections>
+                                            <action selector="openCameraAction:" destination="kg2-4N-IxY" eventType="touchUpInside" id="qpf-M2-kDW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IbA-7S-mHn">
+                                        <rect key="frame" x="149.5" y="323.5" width="44" height="323.5"/>
+                                        <state key="normal" title="Album"/>
+                                        <connections>
+                                            <action selector="openAlbumAction:" destination="kg2-4N-IxY" eventType="touchUpInside" id="8qa-vB-qRp"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rYN-Q3-bGI" firstAttribute="top" secondItem="L0o-Dd-vXq" secondAttribute="bottom" id="2hq-1U-5fh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rYN-Q3-bGI" secondAttribute="trailing" id="I8P-vA-rsC"/>
+                            <constraint firstItem="rYN-Q3-bGI" firstAttribute="leading" secondItem="6Sr-r9-BXL" secondAttribute="leadingMargin" id="IsB-Y9-gZH"/>
+                            <constraint firstItem="LXb-0Q-jFx" firstAttribute="top" secondItem="rYN-Q3-bGI" secondAttribute="bottom" id="O4h-aL-42M"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hCu-fE-Kli" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2665" y="123"/>
         </scene>
         <!--Nav-->
         <scene sceneID="uc1-nZ-lZ4">
@@ -236,9 +291,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="P4i-FJ-bWP">
+                        <barButtonItem key="leftBarButtonItem" title="Salir" id="vJA-iX-4Lz">
+                            <connections>
+                                <action selector="btnSalirAction:" destination="V0z-N2-9lX" id="JYK-MS-XGU"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="Pvc-rF-Sue">
                             <connections>
-                                <segue destination="oC3-Ji-GgR" kind="show" id="X9f-5A-qI4"/>
+                                <segue destination="oC3-Ji-GgR" kind="show" identifier="showSettings" id="X9f-5A-qI4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

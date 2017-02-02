@@ -10,10 +10,12 @@ import UIKit
 import IQKeyboardManagerSwift
 
 class CHRMessagesViewController: UIViewController, UITableViewDataSource {
-
+    static var channelOpened = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+      
+        
         // Do any additional setup after loading the view.
     }
     
@@ -28,22 +30,24 @@ class CHRMessagesViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+       
+        if CHRMessagesViewController.channelOpened == false {
         CHRMessageInteractor.fillMessages(uid: CHRFirebaseManager.currentUserId) { (result) in
-            
             DispatchQueue.main.async {
+                
                 self.tableView.reloadData()
                 let lastIndex = IndexPath(item: CHRMessageInteractor.messages.count - 1  , section: 0)
                 self.tableView?.scrollToRow(at: lastIndex, at: UITableViewScrollPosition.none, animated: true)
             }
             
         }
-        
+        }
+        CHRMessagesViewController.channelOpened = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        CHRMessageInteractor.messages = []
+        //CHRMessageInteractor.messages = []
     }
     
     @IBAction func btnEnviarAction(_ sender: Any) {
@@ -56,6 +60,12 @@ class CHRMessagesViewController: UIViewController, UITableViewDataSource {
                                          from: (CHRFirebaseManager.currentUser?.uid)!)
         txtMessage.text = ""
      
+    }
+    
+    
+    @IBAction func btnSalirAction(_ sender: Any) {
+        CHRMessagesViewController.channelOpened = false
+        dismiss(animated: true, completion: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -74,15 +84,20 @@ class CHRMessagesViewController: UIViewController, UITableViewDataSource {
         return cell!
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "showSettings" {
+            
+            let viewController = segue.destination as! CHRSettingsViewController
+            viewController.selectedUser = CHRProfileInteractor.getCurrentUser(uid: CHRFirebaseManager.currentUserId)
+        }
     }
-    */
+
 
 }
 

@@ -43,5 +43,7 @@ class CHRProfileInteractor: NSObject {
             completion()
         })
     }
+    
+    
    
 }

@@ -10,6 +10,7 @@
 		32C624561E42406200526F86 /* CHRMessageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C624551E42406200526F86 /* CHRMessageInteractor.swift */; };
 		32C624581E4240FF00526F86 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C624571E4240FF00526F86 /* Message.swift */; };
 		32C6245A1E42465200526F86 /* CHRMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C624591E42465200526F86 /* CHRMessagesViewController.swift */; };
+		32C6245C1E426C7600526F86 /* CHRChooseSourceImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C6245B1E426C7600526F86 /* CHRChooseSourceImageViewController.swift */; };
 		5ECB1E4CECFB68F654165586 /* Pods_chat_room.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9641DF2A325E31BCD06EFC03 /* Pods_chat_room.framework */; };
 		B6163F801E419CDC00FE5FE1 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6163F7E1E419CDC00FE5FE1 /* Post.swift */; };
 		B6163F811E419CDC00FE5FE1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6163F7F1E419CDC00FE5FE1 /* User.swift */; };
@@ -54,6 +55,7 @@
 		32C624551E42406200526F86 /* CHRMessageInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHRMessageInteractor.swift; sourceTree = "<group>"; };
 		32C624571E4240FF00526F86 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		32C624591E42465200526F86 /* CHRMessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHRMessagesViewController.swift; sourceTree = "<group>"; };
+		32C6245B1E426C7600526F86 /* CHRChooseSourceImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHRChooseSourceImageViewController.swift; sourceTree = "<group>"; };
 		4CA16A1264F26D40ECC07576 /* Pods_chat_roomUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chat_roomUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		68D569B22E42D3F377C15CF7 /* Pods-chat-room.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chat-room.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chat-room/Pods-chat-room.debug.xcconfig"; sourceTree = "<group>"; };
 		7A6187CC77D423FAA912DC44 /* Pods-chat-roomUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chat-roomUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chat-roomUITests/Pods-chat-roomUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				B6163F8D1E419CEA00FE5FE1 /* CHRProfileTableViewController.swift */,
 				B6163F8E1E419CEA00FE5FE1 /* CHRSettingsViewController.swift */,
 				32C624591E42465200526F86 /* CHRMessagesViewController.swift */,
+				32C6245B1E426C7600526F86 /* CHRChooseSourceImageViewController.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 				32C6245A1E42465200526F86 /* CHRMessagesViewController.swift in Sources */,
 				B6163F951E419CEA00FE5FE1 /* CHRSettingsViewController.swift in Sources */,
 				B63309A51E404E5C00B4A36C /* AppDelegate.swift in Sources */,
+				32C6245C1E426C7600526F86 /* CHRChooseSourceImageViewController.swift in Sources */,
 				B6163F921E419CEA00FE5FE1 /* CHRChatViewController.swift in Sources */,
 				B6163F941E419CEA00FE5FE1 /* CHRProfileTableViewController.swift in Sources */,
 				B6163F811E419CDC00FE5FE1 /* User.swift in Sources */,
