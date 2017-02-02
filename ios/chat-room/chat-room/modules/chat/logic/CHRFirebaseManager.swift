@@ -17,12 +17,13 @@ class CHRFirebaseManager: NSObject {
     static var currentUserId:String = ""
     static var currentUser: FIRUser? = nil
     
-    static func Login(email:String, password:String, completion: @escaping(_ success:Bool)->Void){
+    static func Login(email:String, password:String, completion: @escaping(_ success:Bool)->Void, errorCallback: @escaping(_ error:String) -> Void){
         
         FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
             
             if let error = error {
                 print (error.localizedDescription)
+                errorCallback(error.localizedDescription as! String)
                 completion(false)
             }else{
                 currentUser = user
@@ -40,14 +41,26 @@ class CHRFirebaseManager: NSObject {
                 return
             }
             AddUser(username: username, email: email)
-            Login(email:email, password:password){
+            /*Login(email:email, password:password){
                 (success:Bool) in
                 if(success) {
                     print("Login successful after account creation")
                 } else {
                     print("Login unsuccessful after account creation")
                 }
-            }
+            }*/
+            
+            Login(email: email, password: password, completion: { (success) in
+                if(success) {
+                    print("Login successful after account creation")
+                } else {
+                    print("Login unsuccessful after account creation")
+                }
+
+            }, errorCallback: { (error) in
+                print (error)
+            })
+            
             completion("")
         })
     }

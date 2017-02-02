@@ -31,25 +31,23 @@ class User: NSObject {
         return UIImage()
     }
     
-    func uploadProfilePhoto(profileImage:UIImage){
+    func uploadProfilePhoto(profileImage:UIImage, callback:@escaping (()->Void)){
         let profileImageRef = FIRStorage.storage().reference().child("profileImages").child("\(NSUUID().uuidString).jpg")
         if let imageData = UIImageJPEGRepresentation(profileImage, 0.25){
             profileImageRef.put(imageData, metadata:nil){
                 metadata, error in
                 print("finish upload")
                 if error != nil {
-                    print("error")
-                    print(error)
+                    //print(error)
                     return
                 } else {
-                    
-                    print(metadata)
+                    //print(metadata)
                     if let downloadUrl = metadata?.downloadURL()?.absoluteString{
                        
                             self.profileImageUrl = downloadUrl
-                            //print("downloadUrl: \(downloadUrl)")
-                            CHRFirebaseManager.databaseRef.child("users").child(self.uid).updateChildValues(["profileImageUrl": downloadUrl])
-                        
+                            CHRFirebaseManager.databaseRef.child("users").child(self.uid)
+                                .updateChildValues(["profileImageUrl": downloadUrl])
+                        callback()
                     }
                 }
             }

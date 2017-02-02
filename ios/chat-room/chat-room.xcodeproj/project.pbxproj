@@ -11,6 +11,7 @@
 		32C624581E4240FF00526F86 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C624571E4240FF00526F86 /* Message.swift */; };
 		32C6245A1E42465200526F86 /* CHRMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C624591E42465200526F86 /* CHRMessagesViewController.swift */; };
 		32C6245C1E426C7600526F86 /* CHRChooseSourceImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C6245B1E426C7600526F86 /* CHRChooseSourceImageViewController.swift */; };
+		32C624621E438DC000526F86 /* PLWorkingMessageBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C624611E438DC000526F86 /* PLWorkingMessageBuilder.swift */; };
 		5ECB1E4CECFB68F654165586 /* Pods_chat_room.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9641DF2A325E31BCD06EFC03 /* Pods_chat_room.framework */; };
 		B6163F801E419CDC00FE5FE1 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6163F7E1E419CDC00FE5FE1 /* Post.swift */; };
 		B6163F811E419CDC00FE5FE1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6163F7F1E419CDC00FE5FE1 /* User.swift */; };
@@ -56,6 +57,7 @@
 		32C624571E4240FF00526F86 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		32C624591E42465200526F86 /* CHRMessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHRMessagesViewController.swift; sourceTree = "<group>"; };
 		32C6245B1E426C7600526F86 /* CHRChooseSourceImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHRChooseSourceImageViewController.swift; sourceTree = "<group>"; };
+		32C624611E438DC000526F86 /* PLWorkingMessageBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLWorkingMessageBuilder.swift; sourceTree = "<group>"; };
 		4CA16A1264F26D40ECC07576 /* Pods_chat_roomUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chat_roomUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		68D569B22E42D3F377C15CF7 /* Pods-chat-room.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chat-room.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chat-room/Pods-chat-room.debug.xcconfig"; sourceTree = "<group>"; };
 		7A6187CC77D423FAA912DC44 /* Pods-chat-roomUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chat-roomUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chat-roomUITests/Pods-chat-roomUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -119,6 +121,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		32C6245F1E438DC000526F86 /* base */ = {
+			isa = PBXGroup;
+			children = (
+				32C624601E438DC000526F86 /* networking */,
+			);
+			name = base;
+			path = "chat-room/base";
+			sourceTree = "<group>";
+		};
+		32C624601E438DC000526F86 /* networking */ = {
+			isa = PBXGroup;
+			children = (
+				32C624611E438DC000526F86 /* PLWorkingMessageBuilder.swift */,
+			);
+			path = networking;
+			sourceTree = "<group>";
+		};
 		6A8AB2D4B20903ABA604FF49 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +231,7 @@
 		B63309981E404E5C00B4A36C = {
 			isa = PBXGroup;
 			children = (
+				32C6245F1E438DC000526F86 /* base */,
 				B6163F961E419D6300FE5FE1 /* GoogleService-Info.plist */,
 				B63309A31E404E5C00B4A36C /* chat-room */,
 				B63309BB1E404E5C00B4A36C /* chat-roomTests */,
@@ -552,6 +572,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32C624561E42406200526F86 /* CHRMessageInteractor.swift in Sources */,
+				32C624621E438DC000526F86 /* PLWorkingMessageBuilder.swift in Sources */,
 				B6163F901E419CEA00FE5FE1 /* CHRPostInteractor.swift in Sources */,
 				B63309AD1E404E5C00B4A36C /* chat_room.xcdatamodeld in Sources */,
 				B63309A71E404E5C00B4A36C /* ViewController.swift in Sources */,

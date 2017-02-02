@@ -12,6 +12,7 @@ target 'chat-room' do
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
   pod 'IQKeyboardManagerSwift'
+  pod 'SDWebImage'
   # Pods for chat-room
 
   target 'chat-roomTests' do

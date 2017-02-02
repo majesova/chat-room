@@ -8,14 +8,21 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import SDWebImage
 
-class CHRMessagesViewController: UIViewController, UITableViewDataSource {
+class CHRMessagesViewController: UIViewController, UITableViewDataSource,UITableViewDelegate, UIImagePickerControllerDelegate , UINavigationControllerDelegate{
+    
     static var channelOpened = false
+    
+    var imagePicker : UIImagePickerController!
+    
+    var messageInteractor = CHRMessageInteractor()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-        
+        tableView.estimatedRowHeight = 88.0
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.delegate  = self
         // Do any additional setup after loading the view.
     }
     
@@ -32,11 +39,11 @@ class CHRMessagesViewController: UIViewController, UITableViewDataSource {
         super.viewDidAppear(animated)
        
         if CHRMessagesViewController.channelOpened == false {
-        CHRMessageInteractor.fillMessages(uid: CHRFirebaseManager.currentUserId) { (result) in
+        messageInteractor.fillMessages(uid: CHRFirebaseManager.currentUserId) { (result) in
             DispatchQueue.main.async {
                 
                 self.tableView.reloadData()
-                let lastIndex = IndexPath(item: CHRMessageInteractor.messages.count - 1  , section: 0)
+                let lastIndex = IndexPath(item: self.messageInteractor.messages.count - 1  , section: 0)
                 self.tableView?.scrollToRow(at: lastIndex, at: UITableViewScrollPosition.none, animated: true)
             }
             
@@ -51,21 +58,60 @@ class CHRMessagesViewController: UIViewController, UITableViewDataSource {
     }
     
     @IBAction func btnEnviarAction(_ sender: Any) {
+       
         if txtMessage.text == "" {
             return
         }
+        
         let username = CHRProfileInteractor.getCurrentUser(uid: CHRFirebaseManager.currentUserId)!.username
-        CHRMessageInteractor.sendMessage(username: username,
+        messageInteractor.sendMessage(username: username,
                                          text: self.txtMessage.text!,
                                          from: (CHRFirebaseManager.currentUser?.uid)!)
+        
         txtMessage.text = ""
-     
     }
     
+    @IBAction func btnAddImageAction(_ sender: Any) {
+        
+        let alert = UIAlertController(title: "Cargar imagen", message: "Escoja una imagen", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Imagen desde carrete", style: .default, handler: { (action) in
+            
+            self.openAlbumForSelection()
+        }))
+        alert.addAction(UIAlertAction(title: "Imagen desde cámara", style: .default, handler: { (action) in
+            self.openCamaraForSelection()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .destructive, handler: { (action) in
+            
+        }))
+        self.present(alert, animated: true) {
+            //code to execute once the alert is showing
+            //self.alertShown = true
+        }
+    }
     
     @IBAction func btnSalirAction(_ sender: Any) {
         CHRMessagesViewController.channelOpened = false
         dismiss(animated: true, completion: nil)
+    }
+    
+    func openAlbumForSelection() {
+        if UIImagePickerController.isSourceTypeAvailable( UIImagePickerControllerSourceType.camera) {
+            imagePicker =  UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .savedPhotosAlbum
+            present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func openCamaraForSelection() {
+        if UIImagePickerController.isSourceTypeAvailable( UIImagePickerControllerSourceType.camera) {
+            imagePicker =  UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .camera
+            present(imagePicker, animated: true, completion: nil)
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -73,17 +119,47 @@ class CHRMessagesViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return CHRMessageInteractor.messages.count
+        return messageInteractor.messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell")
-        let message = CHRMessageInteractor.messages[indexPath.row]
-        cell?.textLabel?.text = message.text!
-        cell?.detailTextLabel?.text = message.username!
-        return cell!
+         let message = messageInteractor.messages[indexPath.row]
+        if message.imageUrl == "" {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell")
+            cell?.textLabel?.text = message.text!
+            cell?.detailTextLabel?.text = message.username!
+            return cell!
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "messageCellImage")
+            let imageView = cell?.viewWithTag(100) as! UIImageView
+            let label = cell?.viewWithTag(200) as! UILabel
+            imageView.sd_setImage(with: URL(string: message.imageUrl!))
+            label.text  = message.username!
+            
+            /*if let url = NSURL(string: message.imageUrl!){
+                if let data = NSData(contentsOf: url as URL){
+                    imageView.image = UIImage(data: data as Data)!
+                    
+                    
+                    
+                    
+                }
+            }*/
+            cell?.textLabel?.text = message.text!
+            cell?.detailTextLabel?.text = message.username!
+            return cell!
+        }
+        
+        
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let message = messageInteractor.messages[indexPath.row]
+        if message.imageUrl != "" {
+            return 96
+        }
+        return 70
+    }
     
     // MARK: - Navigation
 
@@ -97,7 +173,21 @@ class CHRMessagesViewController: UIViewController, UITableViewDataSource {
             viewController.selectedUser = CHRProfileInteractor.getCurrentUser(uid: CHRFirebaseManager.currentUserId)
         }
     }
-
+    
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let username = CHRProfileInteractor.getCurrentUser(uid: CHRFirebaseManager.currentUserId)!.username
+        messageInteractor.sendMessageWithImage(username: username,
+                                               text: self.txtMessage.text!,
+                                               from: (CHRFirebaseManager.currentUser?.uid)!, image: chosenImage)
+    }
+    
 
 }
 

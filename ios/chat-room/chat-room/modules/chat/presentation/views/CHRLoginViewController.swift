@@ -36,10 +36,17 @@ class CHRLoginViewController: UIViewController {
     @IBAction func loginButton_click(_ sender: Any) {
         //let email = "majesova@gmail.com"
         //let pass = "2perros"
-        CHRFirebaseManager.Login(email: txtEmail.text!, password: txtPassword.text!) { (success: Bool) in
+        /*CHRFirebaseManager.Login(email: txtEmail.text!, password: txtPassword.text!) { (success: Bool) in
+            
+        }*/
+        CHRFirebaseManager.Login(email: txtEmail.text!, password: txtPassword.text!, completion: { (success) in
             if success {
-                  self.performSegue(withIdentifier: "showProfile", sender: sender)
+                self.performSegue(withIdentifier: "showProfile", sender: sender)
             }
+        }) { (errorDesc) in
+            let alert = UIAlertController(title: "Alert", message: errorDesc, preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
     }
 

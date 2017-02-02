@@ -16,6 +16,8 @@ class CHRSettingsViewController: UIViewController, UIPopoverPresentationControll
     
     var imageSelected : UIImage?
     
+    var workingMessage = PLWorkingMessageBuilder()
+    
     @IBOutlet weak var avatarImage: UIImageView!
     
     
@@ -45,7 +47,10 @@ class CHRSettingsViewController: UIViewController, UIPopoverPresentationControll
     
     @IBAction func btnUpdatePictureAction(_ sender: Any) {
         if imageSelected != nil {
-            selectedUser?.uploadProfilePhoto(profileImage: imageSelected!)
+            let indicator = workingMessage.showModalSpinnerIndicator(view: self.view)
+            selectedUser?.uploadProfilePhoto(profileImage: imageSelected!, callback: {
+                self.workingMessage.hideModalSpinnerIndicator(indicator: indicator)
+            })
         }
     }
     
@@ -87,7 +92,7 @@ class CHRSettingsViewController: UIViewController, UIPopoverPresentationControll
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        print(info)
+        
         picker.dismiss(animated: true, completion: nil)
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage //2
         imageView.contentMode = .scaleAspectFit
