@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "774993326244",
+    "firebase_url": "https://chat-room-c9d8c.firebaseio.com",
+    "project_id": "chat-room-c9d8c",
+    "storage_bucket": "chat-room-c9d8c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774993326244:android:0fddeb55df7fc39f",
+        "android_client_info": {
+          "package_name": "com.majesova.chatroom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "774993326244-hjg1s4iaf5vv167i3e239o2343lj4kt7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZbx7vadGypWNgGlb98-9jVKsLMHZaLfY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
