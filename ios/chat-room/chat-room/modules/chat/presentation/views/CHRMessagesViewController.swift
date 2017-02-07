@@ -153,9 +153,9 @@ class CHRMessagesViewController: UIViewController, UITableViewDataSource,UITable
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let message = messageInteractor.messages[indexPath.row]
         if message.imageUrl != "" {
-            return 96
+            return 100
         }
-        return 70
+        return 75
     }
     
     // MARK: - Navigation

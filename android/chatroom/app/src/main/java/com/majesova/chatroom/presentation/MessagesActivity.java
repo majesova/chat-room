@@ -89,9 +89,10 @@ public class MessagesActivity extends AppCompatActivity {
         FirebaseManager.databaseRef.child("messages").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.e("MYLOG","coso");
+
                 Message mess = dataSnapshot.getValue(Message.class);
                 mMessagesList.add(mess);
+
                 mRecyclerView.scrollToPosition(mMessagesList.size() -1);
                 mAdapter.notifyDataSetChanged();
             }
