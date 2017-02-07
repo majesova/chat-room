@@ -125,11 +125,13 @@ class CHRMessagesViewController: UIViewController, UITableViewDataSource,UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          let message = messageInteractor.messages[indexPath.row]
         if message.imageUrl == "" {
+            //print("Con imagen")
             let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell")
             cell?.textLabel?.text = message.text!
             cell?.detailTextLabel?.text = message.username!
             return cell!
         }else{
+            //print("Sin imagen")
             let cell = tableView.dequeueReusableCell(withIdentifier: "messageCellImage")
             let imageView = cell?.viewWithTag(100) as! UIImageView
             let label = cell?.viewWithTag(200) as! UILabel
@@ -138,12 +140,7 @@ class CHRMessagesViewController: UIViewController, UITableViewDataSource,UITable
             
             /*if let url = NSURL(string: message.imageUrl!){
                 if let data = NSData(contentsOf: url as URL){
-                    imageView.image = UIImage(data: data as Data)!
-                    
-                    
-                    
-                    
-                }
+                    imageView.image = UIImage(data: data as Data)!                }
             }*/
             cell?.textLabel?.text = message.text!
             cell?.detailTextLabel?.text = message.username!

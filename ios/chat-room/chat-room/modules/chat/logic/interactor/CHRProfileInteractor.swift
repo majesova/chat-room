@@ -34,8 +34,10 @@ class CHRProfileInteractor: NSObject {
                 let uid = result["uid"]! as! String
                 let username = result["username"]! as! String
                 let email = result["email"]! as! String
-                let profileImageUrl = result["profileImageUrl"]! as! String
-                
+                var profileImageUrl="";
+                if(result["profileImageUrl"] != nil ){
+                    profileImageUrl = result["profileImageUrl"]! as! String
+                }
                 let u = User(uid: uid, username: username, email: email, profileImageUrl: profileImageUrl)
                 
                 CHRProfileInteractor.users.append(u)
